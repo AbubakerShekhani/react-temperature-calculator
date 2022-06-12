@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+
+function BoilingVerdict(props) {
+  if (props.celsius >= 100) {
+    return <p>The water would boil.</p>
+  }
+
+  return <p>The water would not boil.</p>
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Calculator />     
     </div>
   );
 }
+
+class Calculator extends React.Component {
+  constructor(props) {
+    super(props);
+
+    
+    this.state = {temperature: ''};
+
+  }
+
+  handleChange = (e) => { 
+    this.setState({temperature: e.target.value});
+  }
+
+  render() {
+    const temperature = this.state.temperature;
+
+    return (
+      <fieldset>
+        <legend>
+          <input
+            value={temperature}
+            onChange={this.handleChange} />
+          <BoilingVerdict
+            celisus={parseFloat(temperature)} />
+        </legend>
+      </fieldset>
+    )
+  }
+}
+
 
 export default App;
